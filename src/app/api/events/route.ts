@@ -1,26 +1,16 @@
 import { NextResponse } from "next/server";
+import connectDB from "@/lib/mongodb";
+import Events from "@/models/Events";
+
+export async function POST(req: Request) {
+  await connectDB();
+  const body = await req.json();
+  const newEvent = await Events.create(body);
+  return NextResponse.json(newEvent, { status: 201 });
+}
 
 export async function GET() {
-  return NextResponse.json({
-    events: [{ id: 1, name: "yoga session" }],
-  });
-}
-
-export async function POST(request: Request) {
-  const data = await request.json();
-  return NextResponse.json({
-    data,
-  });
-}
-
-export async function PATCH() {
-  return NextResponse.json({
-    events: [{ id: 1, name: "yoga session" }],
-  });
-}
-
-export async function DELETE() {
-  return NextResponse.json({
-    events: [{ id: 1, name: "yoga session" }],
-  });
+  await connectDB();
+  const allEvents = await Events.find();
+  return NextResponse.json(allEvents);
 }
