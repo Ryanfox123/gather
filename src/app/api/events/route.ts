@@ -5,8 +5,13 @@ import Events from "@/models/Events";
 export async function POST(req: Request) {
   await connectDB();
   const body = await req.json();
-  const newEvent = await Events.create(body);
-  return NextResponse.json(newEvent, { status: 201 });
+  return await Events.create(body)
+    .then((newDoc) => {
+      return NextResponse.json(newDoc, { status: 201 });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 export async function GET() {
