@@ -7,9 +7,9 @@ const eventSchema = new mongoose.Schema(
     location: { type: String, required: true },
     date: { type: Date, required: true },
     startTime: { type: String, required: true },
-    duration: { type: Number, required: true },
-    attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    duration: { type: Number, required: true, min: 0.5, max: 10 },
+    attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
   },
   {
     timestamps: true,

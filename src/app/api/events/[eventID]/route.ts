@@ -27,10 +27,12 @@ export async function DELETE(req: Request, context: any) {
   try {
     await connectDB();
     const { params } = context;
+
     await Events.deleteOne({ _id: params.eventID });
     return NextResponse.json({ msg: "Event deleted" });
   } catch (error) {
     console.error("Error deleting event:", error);
+
     return NextResponse.json(
       { error: "Failed to delete event" },
       { status: 500 }
