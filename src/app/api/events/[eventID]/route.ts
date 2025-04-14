@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
+import mongoose from "mongoose";
 
 export async function GET(req: Request, context: any) {
   try {
     await connectDB();
-    const { params } = context;
+    const { eventID } = context.params;
 
-    const event = await Events.findById(params.eventID);
+    const event = await Events.findById(eventID);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
@@ -35,6 +36,24 @@ export async function DELETE(req: Request, context: any) {
 
     return NextResponse.json(
       { error: "Failed to delete event" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PATCH(req: Request, context: any) {
+  try {
+    await connectDB();
+    const { eventID } = context.params;
+
+    if (!mongoose.Types.ObjectId.isValid(eventID)) {
+      return NextResponse.json({ error: "Invalid event" }, { status: 400 });
+    }
+    return NextResponse.json({ msg: "event found!" });
+  } catch (e) {
+    console.error("Error updating event information:", e);
+    return NextResponse.json(
+      { error: "Internal server error" },
       { status: 500 }
     );
   }
