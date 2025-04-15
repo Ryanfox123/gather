@@ -8,12 +8,10 @@ export async function POST(req: Request) {
     await connectDB();
     const body = await req.json();
     const saltRounds = 4;
-    console.log(body);
     const hash = await bcrypt.hash(body.passwordHash, saltRounds);
 
     body.admin = false;
     body.passwordHash = hash;
-    console.log(body);
     const newUser = await Users.create(body);
     return NextResponse.json(newUser, { status: 201 });
   } catch (error) {

@@ -3,21 +3,35 @@ import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 import mongoose from "mongoose";
 
-export async function PATCH(req: Request, context: any) {
+interface Context {
+  params: {
+    eventID: string;
+  };
+}
+
+export async function PATCH(req: Request, context: Context) {
   try {
     await connectDB();
     const { eventID } = context.params;
     const body = await req.json();
 
     const userID = body.userID;
+    const isUserAttending = body.isUserAttending;
 
     if (!mongoose.Types.ObjectId.isValid(userID)) {
       return NextResponse.json({ error: "Invalid user ID" }, { status: 400 });
     }
+    if (!mongoose.Types.ObjectId.isValid(eventID)) {
+      return NextResponse.json({ error: "Invalid event ID" }, { status: 400 });
+    }
+
+    const updateOperation = isUserAttending
+      ? { $addToSet: { attendees: userID } }
+      : { $pull: { attendees: userID } };
 
     const updatedEvent = await Events.findByIdAndUpdate(
       eventID,
-      { $addToSet: { attendees: userID } },
+      updateOperation,
       { new: true }
     );
 
@@ -29,8 +43,8 @@ export async function PATCH(req: Request, context: any) {
       msg: "Attendees successfully updated",
       data: updatedEvent,
     });
-  } catch (e) {
-    console.error("Error updating event attendees:", e);
+  } catch (error) {
+    console.error("Error updating event attendees:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
