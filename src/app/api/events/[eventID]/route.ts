@@ -1,9 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 import mongoose from "mongoose";
 
-export async function GET(req: Request, context: any) {
+//get an event
+export async function GET(req: NextRequest, context: any) {
   try {
     await connectDB();
     const { eventID } = context.params;
@@ -24,7 +25,8 @@ export async function GET(req: Request, context: any) {
   }
 }
 
-export async function DELETE(req: Request, context: any) {
+//delete an event
+export async function DELETE(req: NextRequest, context: any) {
   try {
     await connectDB();
     const { params } = context;
@@ -41,7 +43,8 @@ export async function DELETE(req: Request, context: any) {
   }
 }
 
-export async function PATCH(req: Request, context: any) {
+//change event details
+export async function PATCH(req: NextRequest, context: any) {
   try {
     await connectDB();
     const { eventID } = context.params;

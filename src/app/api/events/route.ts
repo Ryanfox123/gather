@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 
+//post a new event
 export async function POST(req: Request) {
   await connectDB();
   const body = await req.json();
@@ -14,6 +15,7 @@ export async function POST(req: Request) {
     });
 }
 
+//get all events
 export async function GET() {
   await connectDB();
   const allEvents = await Events.find();
