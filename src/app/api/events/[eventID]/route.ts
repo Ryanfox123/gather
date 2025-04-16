@@ -3,6 +3,12 @@ import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 import mongoose from "mongoose";
 
+interface Context {
+  params: {
+    eventID: string;
+  };
+}
+
 //get an event
 export async function GET(req: NextRequest, context: any) {
   try {

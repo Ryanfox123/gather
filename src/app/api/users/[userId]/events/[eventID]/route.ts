@@ -4,14 +4,20 @@ import Users from "@/models/Users";
 import mongoose from "mongoose";
 import Events from "@/models/Events";
 
+interface Context {
+  params: {
+    userID: string;
+    eventID: string;
+  };
+}
+
 //Update a users events, also update that events attendees
 export async function PATCH(req: Request, context: any) {
   try {
     await connectDB();
-    const { userID } = context.params;
+    const { userID, eventID } = context.params;
     const body = await req.json();
 
-    const eventID = body.eventID;
     const isAttending = body.isAttending;
 
     if (

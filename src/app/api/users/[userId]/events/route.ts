@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
-import Events from "@/models/Events";
-import mongoose from "mongoose";
+import Users from "@/models/Users";
 
 interface Context {
   params: {
@@ -11,4 +10,22 @@ interface Context {
 }
 
 //get all events for a user
-export async function GET() {}
+export async function GET(req: NextRequest, context: Context) {
+  try {
+    connectDB();
+    const { userID } = context.params;
+
+    const userEvents = await Users.findOne(
+      { _id: userID },
+      { attendees: 1, _id: 0 }
+    );
+
+    return NextResponse.json(userEvents);
+  } catch (error) {
+    console.error("Error fetching users events:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch users events" },
+      { status: 500 }
+    );
+  }
+}
