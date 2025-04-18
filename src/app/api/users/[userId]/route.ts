@@ -1,8 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Users from "@/models/Users";
-import mongoose from "mongoose";
-import Events from "@/models/Events";
 
 interface Context {
   params: {
