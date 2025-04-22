@@ -23,7 +23,7 @@ function SignUpForm({ setAuthMethod }: Props) {
     event.preventDefault();
 
     try {
-      const response = await fetch("/api/auth/", {
+      const response = await fetch("/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +48,7 @@ function SignUpForm({ setAuthMethod }: Props) {
       <h2 className="text-2xl font-bold text-center text-lightViolet">
         Create your account
       </h2>
-      <form className="flex flex-col space-y-4">
+      <form className="flex flex-col space-y-4" onSubmit={handleSubmit}>
         <div>
           <label className="text-sm text-gray-700 block mb-1">Full name</label>
           <input

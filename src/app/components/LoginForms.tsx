@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import SignUpForm from "./SignUpForm";
 import SignInForm from "./SignInForm";
+import GoogleAuthButton from "./GoogleAuthButton";
 
 function LoginForms() {
   const [authMethod, setAuthMethod] = useState<string | null>(null);
@@ -31,6 +32,7 @@ function LoginForms() {
           >
             Sign in
           </button>
+          <GoogleAuthButton />
         </div>
       )}
       {authMethod === "signup" ? (
