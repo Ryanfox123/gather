@@ -1,11 +1,10 @@
-"use client";
 import HomeClient from "./components/HomeClient";
-import { SessionProvider } from "next-auth/react";
+import SessionWrapper from "./components/SessionWrapper";
 
 export default function Home() {
   return (
-    <SessionProvider>
-      <HomeClient />;
-    </SessionProvider>
+    <SessionWrapper>
+      <HomeClient />
+    </SessionWrapper>
   );
 }

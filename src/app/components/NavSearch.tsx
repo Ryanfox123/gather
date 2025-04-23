@@ -19,7 +19,7 @@ function NavSearch() {
           }}
         />
       </div>
-      <button className="text-white bg-lightViolet border-1 rounded-r-sm text-xs w-14 h-9 my-auto border-lightViolet hover:border-black hover:bg-darkViolet">
+      <button className="text-white cursor-pointer bg-lightViolet border-1 rounded-r-sm text-xs w-14 h-9 my-auto border-lightViolet hover:border-black hover:bg-darkViolet">
         Search
       </button>
     </div>
