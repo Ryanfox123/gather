@@ -1,17 +1,11 @@
-import EventList from "./components/EventList";
-import NavBar from "./components/NavBar";
-import UpcomingEvents from "./components/UpcomingEvents";
-import Welcome from "./components/Welcome";
+"use client";
+import HomeClient from "./components/HomeClient";
+import { SessionProvider } from "next-auth/react";
 
 export default function Home() {
   return (
-    <div>
-      <NavBar />
-      <Welcome />
-      <div className="flex flex-row">
-        <UpcomingEvents />
-        <EventList />
-      </div>
-    </div>
+    <SessionProvider>
+      <HomeClient />;
+    </SessionProvider>
   );
 }

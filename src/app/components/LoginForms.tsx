@@ -14,7 +14,7 @@ function LoginForms() {
         <div className="flex flex-col mt-8 gap-2 mx-auto">
           {" "}
           <button
-            className="bg-gradient-to-r from-lightViolet to-newBlue rounded-2xl"
+            className="bg-gradient-to-r from-lightViolet to-newBlue rounded-2xl w-36 mx-auto"
             onClick={() => {
               setAuthMethod("signup");
             }}
@@ -25,7 +25,7 @@ function LoginForms() {
             Have an account already ?
           </p>
           <button
-            className="bg-gradient-to-r from-lightViolet to-newBlue rounded-2xl"
+            className="bg-gradient-to-r from-lightViolet to-newBlue rounded-2xl w-36 mx-auto"
             onClick={() => {
               setAuthMethod("signin");
             }}

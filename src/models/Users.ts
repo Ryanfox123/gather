@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema(
         "Email is invalid",
       ],
     },
-    passwordHash: { type: String, required: true },
+    passwordHash: { type: String, required: false },
     events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Events" }],
     admin: { type: Boolean, required: true },
   },

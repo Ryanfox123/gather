@@ -1,6 +1,7 @@
 import React from "react";
 import NavSearch from "./NavSearch";
 import { Playwrite_RO } from "next/font/google";
+import { signOut } from "next-auth/react";
 
 const playwrite = Playwrite_RO({ weight: "400" });
 
@@ -15,7 +16,7 @@ function NavBar() {
       </h2>
       <NavSearch />
 
-      <ul className="flex flex-row gap-4 items-center text-black ml-auto pr-16 my-auto">
+      <ul className="flex flex-row gap-4 items-center text-black ml-auto pr-4 my-auto">
         <li>
           <button className="text-white bg-lightViolet p-2 text-sm rounded-2xl hover:bg-darkViolet">
             Create an event
@@ -24,6 +25,14 @@ function NavBar() {
         <li className="hover:text-lightViolet">Your events</li>
         <li className="hover:text-lightViolet">Profile</li>
       </ul>
+      <p
+        className="text-red-500 my-auto pr-4"
+        onClick={() => {
+          signOut();
+        }}
+      >
+        Sign out{" "}
+      </p>
     </div>
   );
 }
