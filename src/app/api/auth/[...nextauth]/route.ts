@@ -26,6 +26,7 @@ export const authOptions: NextAuthOptions = {
         token.id = dbUser._id.toString();
         token.email = dbUser.email;
         token.name = dbUser.name;
+        token.events = dbUser.events;
       }
       return token;
     },
@@ -35,6 +36,7 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
         session.user.email = token.email as string;
         session.user.name = token.name as string;
+        session.user.events = token.events as string[];
       }
       return session;
     },

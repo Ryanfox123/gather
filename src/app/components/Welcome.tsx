@@ -17,10 +17,14 @@ function Welcome() {
         <h1 className="text-3xl text-center">
           Welcome, {session.user?.name} 👋{" "}
         </h1>
-        <p>
-          Your calendar appears to be empty, have a look below to sign up to
-          some events
-        </p>
+        {session.user?.events.length === 0 ? (
+          <p>
+            Your calendar appears to be empty, have a look below to sign up to
+            some events
+          </p>
+        ) : (
+          <p>View your planned events:</p>
+        )}
       </div>
     </div>
   );
