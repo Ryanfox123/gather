@@ -17,7 +17,7 @@ export async function GET(req: NextRequest, context: Context) {
 
     const userEvents = await Users.findOne(
       { _id: userID },
-      { attendees: 1, _id: 0 }
+      { events: 1, _id: 0 }
     );
 
     return NextResponse.json(userEvents);

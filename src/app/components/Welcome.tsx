@@ -15,16 +15,8 @@ function Welcome() {
     <div>
       <div className="mx-auto w-fit mt-20 text-black ">
         <h1 className="text-3xl text-center">
-          Welcome, {session.user?.name} 👋{" "}
+          Welcome, {session.user?.name || "There"} 👋{" "}
         </h1>
-        {session.user?.events.length === 0 ? (
-          <p>
-            Your calendar appears to be empty, have a look below to sign up to
-            some events
-          </p>
-        ) : (
-          <p>View your planned events:</p>
-        )}
       </div>
     </div>
   );
