@@ -20,7 +20,7 @@ function NavBar() {
     return <p>Loading...</p>;
   }
   return (
-    <div className="fixed top-0 bg-white border-b-1 w-full h-14 flex flex-row gap-9 pl-8">
+    <div className="fixed top-0 bg-white border-b-1 w-full h-14 flex flex-row gap-9 pl-8 ">
       <h2
         className={`${playwrite.className} text-2xl font-extrabold text-lightViolet my-auto`}
       >

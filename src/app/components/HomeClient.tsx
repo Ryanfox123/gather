@@ -8,10 +8,7 @@ export default function HomeClient() {
     <div>
       <NavBar />
       <Welcome />
-      <div className="flex flex-row">
-        <UpcomingEvents />
-        <EventList />
-      </div>
+      <UpcomingEvents />
     </div>
   );
 }
