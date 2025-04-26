@@ -10,6 +10,7 @@ const eventSchema = new mongoose.Schema(
     duration: { type: Number, required: true, min: 0.5, max: 10 },
     attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Users" },
+    imageUrl: { type: String, required: false },
   },
   {
     timestamps: true,

@@ -9,6 +9,7 @@ export default function HomeClient() {
       <NavBar />
       <Welcome />
       <UpcomingEvents />
+      <EventList />
     </div>
   );
 }
