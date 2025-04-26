@@ -1,6 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
+import CardUpcomingEvent from "./CardUpcomingEvent";
 
 function UpcomingEvents() {
   const [userEvents, setUserEvents] = useState<any[]>([]);
@@ -12,11 +13,10 @@ function UpcomingEvents() {
       if (!session) return;
 
       try {
-        const res = await fetch(`/api/users/${session.user.id}/events`);
+        const res = await fetch(`/api/users/${session.user?.id}/events`);
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
-        console.log(data, "here");
-        setUserEvents(data.events);
+        setUserEvents(data);
       } catch (err) {
         console.error("Error fetching events:", err);
       } finally {
@@ -29,7 +29,6 @@ function UpcomingEvents() {
 
   if (status === "loading") return <p>Loading...</p>;
   if (!session) return <p>Not signed in</p>;
-  console.log(session);
   return (
     <div className="mx-auto">
       <h2 className="text-black">Your upcoming events</h2>
@@ -37,11 +36,7 @@ function UpcomingEvents() {
         {userEvents.length === 0 ? (
           <li className="text-black">No upcoming events</li>
         ) : (
-          userEvents.map((event, index) => (
-            <li key={index} className="text-black">
-              {event}
-            </li>
-          ))
+          userEvents.map((event, index) => <CardUpcomingEvent event={event} />)
         )}
       </ul>
     </div>

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Users from "@/models/Users";
+import Events from "@/models/Events";
 
 interface Context {
   params: {
@@ -15,10 +16,9 @@ export async function GET(req: NextRequest, context: Context) {
     connectDB();
     const { userID } = context.params;
 
-    const userEvents = await Users.findOne(
-      { _id: userID },
-      { events: 1, _id: 0 }
-    );
+    const userEvents = await Events.find({
+      attendees: userID,
+    });
 
     return NextResponse.json(userEvents);
   } catch (error) {
