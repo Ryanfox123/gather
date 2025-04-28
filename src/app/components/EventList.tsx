@@ -20,7 +20,11 @@ function EventList() {
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
 
-        setAllEvents(data);
+        const sortedData = data.sort((a: any, b: any) => {
+          return new Date(a.date).getTime() - new Date(b.date).getTime();
+        });
+
+        setAllEvents(sortedData);
       } catch (err) {
         console.error("Error fetching events:", err);
       } finally {
@@ -51,11 +55,12 @@ function EventList() {
   return (
     <div className="w-2/3 mx-auto mt-7">
       <h2 className="text-black font-extrabold">Browse new events</h2>
-      <div className="flex flex-col gap-4">
+
+      <ul className="flex flex-col gap-4">
         {visibleEvents.map((event) => (
           <CardEventList event={event} key={event._id} />
         ))}
-      </div>
+      </ul>
     </div>
   );
 }

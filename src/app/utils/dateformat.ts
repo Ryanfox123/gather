@@ -1,6 +1,9 @@
+const days = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+
 export function formatDate(dateString: string) {
   const date = new Date(dateString);
 
+  const dayName = date.getDay();
   const day = date.getDate();
   const month = date.toLocaleString("en-US", { month: "long" });
 
@@ -13,5 +16,5 @@ export function formatDate(dateString: string) {
       ? "rd"
       : "th";
 
-  return `${day}${suffix} ${month}`;
+  return `${days[dayName]}, ${day}${suffix} ${month}`;
 }
