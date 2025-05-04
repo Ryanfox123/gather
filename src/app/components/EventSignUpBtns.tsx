@@ -5,9 +5,10 @@ import { useSession } from "next-auth/react";
 
 type Props = {
   eventID: string;
+  eventInfo: any;
 };
 
-function EventSignUpBtns({ eventID }: Props) {
+function EventSignUpBtns({ eventID, eventInfo }: Props) {
   const [isAttending, setIsAttending] = useState<boolean | null>(null);
   const { data: session, status } = useSession();
 
@@ -95,7 +96,7 @@ function EventSignUpBtns({ eventID }: Props) {
         </button>
       )}
 
-      <GoogleCalendarBtn />
+      <GoogleCalendarBtn eventInfo={eventInfo} />
     </div>
   );
 }

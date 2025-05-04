@@ -48,7 +48,7 @@ async function Event({ params }: Props) {
               </p>
               <p className="text-gray-500">Start Time: {event.startTime}</p>
             </div>
-            <EventSignUpBtns eventID={eventID} />
+            <EventSignUpBtns eventID={eventID} eventInfo={event} />
           </div>
         </div>
 

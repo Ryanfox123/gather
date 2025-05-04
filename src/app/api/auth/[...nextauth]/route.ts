@@ -7,6 +7,12 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      authorization: {
+        params: {
+          scope:
+            "openid profile email https://www.googleapis.com/auth/calendar",
+        },
+      },
     }),
   ],
   session: {
@@ -17,7 +23,12 @@ export const authOptions: NextAuthOptions = {
     async redirect({ url, baseUrl }) {
       return baseUrl;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
+      if (account?.provider === "google") {
+        token.accessToken = account.access_token;
+        token.refreshToken = account.refresh_token;
+        token.expires_at = account.expires_at;
+      }
       if (user?.email && user?.name) {
         const dbUser = await createUserIfNotExists({
           name: user.name,
@@ -37,7 +48,9 @@ export const authOptions: NextAuthOptions = {
         session.user.email = token.email as string;
         session.user.name = token.name as string;
         session.user.events = token.events as string[];
+        session.user.accessToken = token.accessToken as string;
       }
+
       return session;
     },
   },
