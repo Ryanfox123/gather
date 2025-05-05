@@ -41,7 +41,7 @@ function SignUpForm({ setAuthMethod }: Props) {
       }
     } catch (error) {
       setErrorMessage("Something went wrong. Please try again.");
-      console.error(errorMessage);
+      console.error(errorMessage, error);
     }
   };
 

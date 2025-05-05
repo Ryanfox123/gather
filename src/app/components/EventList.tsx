@@ -29,7 +29,7 @@ function EventList() {
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
 
-        const sortedData = data.sort((a: any, b: any) => {
+        const sortedData = data.sort((a: EventType, b: EventType) => {
           return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
 
