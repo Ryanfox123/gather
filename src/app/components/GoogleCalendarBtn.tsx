@@ -3,20 +3,37 @@ import React, { useState } from "react";
 import { useSession } from "next-auth/react";
 import { CalendarPlus } from "lucide-react";
 
-function GoogleCalendarBtn({ eventInfo }: any) {
+type EventInfo = {
+  title: string;
+  description: string;
+  location: string;
+  startTime: string;
+  duration: number;
+};
+
+function GoogleCalendarBtn({ eventInfo }: { eventInfo: EventInfo }) {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleAddToGoogleCalendar = async () => {
+    const { title, description, location, startTime, duration } = eventInfo;
+
     if (!session?.user?.accessToken) {
-      console.error("User is not authenticated");
-      setErrorMessage("User is not authenticated");
+      const endTime = new Date(
+        new Date(startTime).getTime() + duration * 60 * 60 * 1000
+      );
+      const googleCalendarLink = generateGoogleCalendarLink({
+        title,
+        description,
+        location,
+        startTime,
+        endTime: endTime.toISOString(),
+      });
+      window.open(googleCalendarLink, "_blank");
       return;
     }
-
-    const { title, description, location, startTime, duration } = eventInfo;
 
     setLoading(true);
     setErrorMessage("");
@@ -76,6 +93,32 @@ function GoogleCalendarBtn({ eventInfo }: any) {
       )}
     </div>
   );
+}
+
+function generateGoogleCalendarLink({
+  title,
+  description,
+  location,
+  startTime,
+  endTime,
+}: {
+  title: string;
+  description: string;
+  location: string;
+  startTime: string;
+  endTime: string;
+}) {
+  const format = (dateStr: string) =>
+    new Date(dateStr).toISOString().replace(/[-:]|\.\d{3}/g, "");
+
+  const params = new URLSearchParams({
+    text: title,
+    details: description,
+    location,
+    dates: `${format(startTime)}/${format(endTime)}`,
+  });
+
+  return `https://www.google.com/calendar/render?action=TEMPLATE&${params.toString()}`;
 }
 
 export default GoogleCalendarBtn;

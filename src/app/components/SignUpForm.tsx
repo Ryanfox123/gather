@@ -35,6 +35,7 @@ function SignUpForm({ setAuthMethod }: Props) {
 
       if (response.ok) {
         alert("Signed in successfully");
+        setAuthMethod(null);
       } else {
         setErrorMessage(data.message);
       }

@@ -1,9 +1,30 @@
 import NextAuth, { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { createUserIfNotExists } from "@/lib/userService";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { loginFunction } from "@/app/utils/logInFunc";
 
 export const authOptions: NextAuthOptions = {
   providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials, req) {
+        const user = await loginFunction(
+          credentials.email,
+          credentials.password
+        );
+
+        if (user) {
+          return { id: user.id, name: user.name, email: user.email };
+        } else {
+          return null;
+        }
+      },
+    }),
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
