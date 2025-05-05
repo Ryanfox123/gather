@@ -3,17 +3,14 @@ import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 import mongoose from "mongoose";
 
-type ContextType = {
-  params: {
-    eventID: string;
-  };
-};
-
 // GET
-export async function GET(req: NextRequest, context: ContextType) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { eventID: string } }
+) {
   try {
     await connectDB();
-    const { eventID } = context.params;
+    const { eventID } = params;
 
     const event = await Events.findById(eventID);
 
@@ -32,10 +29,13 @@ export async function GET(req: NextRequest, context: ContextType) {
 }
 
 // DELETE
-export async function DELETE(req: NextRequest, context: ContextType) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { eventID: string } }
+) {
   try {
     await connectDB();
-    const { eventID } = context.params;
+    const { eventID } = params;
 
     await Events.deleteOne({ _id: eventID });
 
@@ -50,10 +50,13 @@ export async function DELETE(req: NextRequest, context: ContextType) {
 }
 
 // PATCH
-export async function PATCH(req: NextRequest, context: ContextType) {
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { eventID: string } }
+) {
   try {
     await connectDB();
-    const { eventID } = context.params;
+    const { eventID } = params;
 
     if (!mongoose.Types.ObjectId.isValid(eventID)) {
       return NextResponse.json({ error: "Invalid event" }, { status: 400 });
