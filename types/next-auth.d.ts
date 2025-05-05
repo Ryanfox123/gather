@@ -10,11 +10,13 @@ declare module "next-auth" {
       name: string;
       events?: string[];
       accessToken: string;
+      admin: boolean;
     };
   }
 
   interface User {
     id: string;
     events?: string[];
+    admin: boolean;
   }
 }

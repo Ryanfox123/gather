@@ -12,14 +12,25 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
+
+      async authorize(credentials: Record<string, string> | undefined) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
         const user = await loginFunction(
           credentials.email,
           credentials.password
         );
 
         if (user) {
-          return { id: user.id, name: user.name, email: user.email };
+          return {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            events: user.events,
+            admin: user.admin,
+          };
         } else {
           return null;
         }
@@ -59,6 +70,7 @@ export const authOptions: NextAuthOptions = {
         token.email = dbUser.email;
         token.name = dbUser.name;
         token.events = dbUser.events;
+        token.admin = dbUser.admin;
       }
       return token;
     },
@@ -70,6 +82,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name as string;
         session.user.events = token.events as string[];
         session.user.accessToken = token.accessToken as string;
+        session.user.admin = token.admin as boolean;
       }
 
       return session;

@@ -4,53 +4,77 @@ import Events from "@/models/Events";
 import { getToken } from "next-auth/jwt";
 import Users from "@/models/Users";
 
-//post a new event
+// Post a new event
 export async function POST(req: NextRequest) {
   try {
-    await connectDB();
-
-    // const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    // if (!token) {
-    //   return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-    // }
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    if (!token) {
+      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+    }
 
     const body = await req.json();
-    const newEvent = await Events.create(body);
+    const {
+      title,
+      description,
+      location,
+      date,
+      startTime,
+      duration,
+      imageUrl,
+    } = body;
 
-    if (newEvent) {
-      await Events.findByIdAndUpdate(
-        newEvent._id,
-        { $addToSet: { attendees: newEvent.createdBy } },
-        { new: true }
-      );
-    }
-    const [updatedUser, updatedEvent] = await Promise.all([
-      Events.findByIdAndUpdate(
-        newEvent._id,
-        { $addToSet: { attendees: newEvent.createdBy } },
-        { new: true }
-      ),
-      Users.findByIdAndUpdate(
-        newEvent.createdBy,
-        { $addToSet: { events: newEvent._id } },
-        { new: true }
-      ),
-    ]);
-    if (!updatedUser || !updatedEvent || !newEvent) {
+    if (!title || !location || !date || !startTime || !duration) {
       return NextResponse.json(
-        { error: "error posting your event" },
-        { status: 404 }
+        { message: "Missing required fields" },
+        { status: 400 }
       );
     }
+
+    const newEvent = await Events.create({
+      ...body,
+      createdBy: token.sub,
+    });
+
+    const updatedEvent = await Events.findByIdAndUpdate(
+      newEvent._id,
+      { $addToSet: { attendees: newEvent.createdBy } },
+      { new: true }
+    );
+
+    const updatedUser = await Users.findByIdAndUpdate(
+      newEvent.createdBy,
+      { $addToSet: { events: newEvent._id } },
+      { new: true }
+    );
+
+    if (!updatedUser || !updatedEvent) {
+      return NextResponse.json(
+        { error: "Error posting your event" },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(newEvent, { status: 201 });
   } catch (error) {
     console.log(error);
+    return NextResponse.json(
+      { message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
-//get all events
+// Get all events
 export async function GET() {
-  await connectDB();
-  const allEvents = await Events.find();
-  return NextResponse.json(allEvents);
+  try {
+    await connectDB();
+    const allEvents = await Events.find();
+    return NextResponse.json(allEvents);
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json(
+      { message: "Failed to fetch events" },
+      { status: 500 }
+    );
+  }
 }

@@ -23,12 +23,18 @@ function CardEventList({ event }: Props) {
   const [imgError, setImgError] = useState(false);
   const date = formatDate(event.date);
   const time = formatTo12HourTime(event.startTime);
+
+  // Check if imageUrl is valid
+  const validImageUrl = event.imageUrl && event.imageUrl !== "";
+
   return (
     <Link href={`/events/${event._id}`}>
-      <li>
-        <div className="flex flex-row">
-          <div>
-            {!imgError ? (
+      <li className="flex p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+        <div className="flex flex-row w-full">
+          {/* Image Section */}
+          <div className="w-1/3">
+            {/* Conditionally render image */}
+            {validImageUrl && !imgError ? (
               <Image
                 src={event.imageUrl}
                 alt={event.title}
@@ -39,11 +45,12 @@ function CardEventList({ event }: Props) {
               />
             ) : (
               <div className="h-[150px] w-[200px] flex items-center justify-center bg-emerald-800 rounded-lg text-gray-200 font-medium">
-                {event.title}
+                {validImageUrl ? "Image failed to load" : "No image available"}
               </div>
             )}
           </div>
-          <div className="ml-2 flex flex-col justify-between h-[150px]">
+
+          <div className="ml-4 flex flex-col justify-between w-2/3 h-[150px]">
             <div className="flex flex-col gap-1">
               <p className="text-emerald-600">
                 {date} · {time}
@@ -54,7 +61,7 @@ function CardEventList({ event }: Props) {
                 {event.location}
               </p>
             </div>
-            <p className="text-gray-500 mb-2">
+            <p className="text-gray-500 text-sm">
               {event.attendees.length} attendees
             </p>
           </div>
