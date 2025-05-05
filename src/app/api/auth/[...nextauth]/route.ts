@@ -12,28 +12,31 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-
       async authorize(credentials: Record<string, string> | undefined) {
         if (!credentials?.email || !credentials?.password) {
           return null;
         }
 
-        const user = await loginFunction(
-          credentials.email,
-          credentials.password
-        );
+        try {
+          const user = await loginFunction(
+            credentials.email,
+            credentials.password
+          );
 
-        if (user) {
-          return {
-            id: user.id,
-            name: user.name,
-            email: user.email,
-            events: user.events,
-            admin: user.admin,
-          };
-        } else {
-          return null;
+          if (user) {
+            return {
+              id: user.id,
+              name: user.name,
+              email: user.email,
+              events: user.events,
+              admin: user.admin,
+            };
+          }
+        } catch (error) {
+          console.error("Login failed:", error);
         }
+
+        return null;
       },
     }),
     GoogleProvider({
@@ -50,28 +53,35 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-
   callbacks: {
     async redirect({ baseUrl }) {
       return baseUrl;
     },
+
     async jwt({ token, user, account }) {
       if (account?.provider === "google") {
         token.accessToken = account.access_token;
         token.refreshToken = account.refresh_token;
         token.expires_at = account.expires_at;
       }
+
       if (user?.email && user?.name) {
-        const dbUser = await createUserIfNotExists({
-          name: user.name,
-          email: user.email,
-        });
-        token.id = dbUser._id.toString();
-        token.email = dbUser.email;
-        token.name = dbUser.name;
-        token.events = dbUser.events;
-        token.admin = dbUser.admin;
+        try {
+          const dbUser = await createUserIfNotExists({
+            name: user.name,
+            email: user.email,
+          });
+
+          token.id = dbUser._id.toString();
+          token.email = dbUser.email;
+          token.name = dbUser.name;
+          token.events = dbUser.events;
+          token.admin = dbUser.admin;
+        } catch (error) {
+          console.error("Error creating or fetching user:", error);
+        }
       }
+
       return token;
     },
 
