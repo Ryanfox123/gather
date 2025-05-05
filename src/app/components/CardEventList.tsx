@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { formatDate } from "../utils/dateformat";
 import { FaMapPin } from "react-icons/fa";
 import Link from "next/link";
+import formatTo12HourTime from "../utils/timeFormat";
 
 type Props = {
   event: {
@@ -21,7 +22,7 @@ type Props = {
 function CardEventList({ event }: Props) {
   const [imgError, setImgError] = useState(false);
   const date = formatDate(event.date);
-
+  const time = formatTo12HourTime(event.startTime);
   return (
     <Link href={`/events/${event._id}`}>
       <li>
@@ -45,7 +46,7 @@ function CardEventList({ event }: Props) {
           <div className="ml-2 flex flex-col justify-between h-[150px]">
             <div className="flex flex-col gap-1">
               <p className="text-emerald-600">
-                {date} · {event.startTime}
+                {date} · {time}
               </p>
               <h3 className="text-black font-bold">{event.title}</h3>
               <p className="text-black flex flex-row text-sm">

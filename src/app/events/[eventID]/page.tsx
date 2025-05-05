@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { formatDate } from "@/app/utils/dateformat";
-import { LuArrowBigLeftDash } from "react-icons/lu";
 import EventSignUpBtns from "@/app/components/EventSignUpBtns";
 import GoBackBtn from "@/app/components/GoBackBtn";
+import formatTo12HourTime from "@/app/utils/timeFormat";
 
 type Props = {
   params: {
@@ -24,7 +24,7 @@ async function Event({ params }: Props) {
 
   const event = await res.json();
   const date = formatDate(event.date);
-
+  const time = formatTo12HourTime(event.startTime);
   return (
     <div className="min-h-screen bg-gray-50 py-10">
       <GoBackBtn />
@@ -46,7 +46,7 @@ async function Event({ params }: Props) {
               <p className="text-gray-500">
                 {date} • {event.duration} hours
               </p>
-              <p className="text-gray-500">Start Time: {event.startTime}</p>
+              <p className="text-gray-500">Start Time: {time}</p>
             </div>
             <EventSignUpBtns eventID={eventID} eventInfo={event} />
           </div>

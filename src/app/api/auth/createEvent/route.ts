@@ -13,7 +13,20 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const { eventDetails } = await req.json();
+  const eventDetails = await req.json();
+  console.log(eventDetails);
+
+  if (!eventDetails.startTime || !eventDetails.duration) {
+    return NextResponse.json(
+      { error: "Missing required fields: startDateTime or duration" },
+      { status: 400 }
+    );
+  }
+
+  const startDateTime = new Date(eventDetails.startTime);
+  const endDateTime = new Date(
+    startDateTime.getTime() + eventDetails.duration * 60 * 60 * 1000
+  );
 
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
@@ -26,26 +39,18 @@ export async function POST(req: NextRequest) {
 
   const calendar = google.calendar({ version: "v3", auth: oauth2Client });
 
-  const startDateTime = new Date(eventDetails.date);
-  const [hours, minutes] = eventDetails.startTime.split(":").map(Number);
-  startDateTime.setHours(hours, minutes, 0);
-
-  const endDateTime = new Date(
-    startDateTime.getTime() + eventDetails.duration * 60 * 60 * 1000
-  );
-
   const event = {
+    summary: eventDetails.title,
     location: eventDetails.location,
     description: eventDetails.description,
     start: {
-      dateTime: eventDetails.startTime.toISOString(),
+      dateTime: startDateTime.toISOString(),
       timeZone: "Europe/London",
     },
     end: {
       dateTime: endDateTime.toISOString(),
       timeZone: "Europe/London",
     },
-    attendees: eventDetails.attendees,
   };
 
   try {
@@ -56,6 +61,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ event: response.data });
   } catch (error) {
+    console.log(error);
     console.error("Google Calendar API error:", error);
     return NextResponse.json(
       { error: "Failed to create calendar event" },

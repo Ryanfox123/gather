@@ -1,5 +1,6 @@
 import React from "react";
 import { formatDate } from "../utils/dateformat";
+import formatTo12HourTime from "../utils/timeFormat";
 
 type Props = {
   event: {
@@ -15,7 +16,7 @@ type Props = {
 
 function CardUpcomingEvent({ event }: Props) {
   const date = formatDate(event.date);
-
+  const time = formatTo12HourTime(event.startTime);
   return (
     <li className="bg-white shadow-md rounded-xl p-4 mb-3 flex flex-col gap-2 border border-gray-200 hover:shadow-md transition w-64">
       <div className="bg-lightViolet text-white text-xs font-semibold px-2 py-0.5 rounded-full w-fit mb-1">
@@ -26,7 +27,7 @@ function CardUpcomingEvent({ event }: Props) {
 
       <div className="text-gray-600 text-xs flex flex-col gap-0.5">
         <p>
-          <span className="font-semibold">Time:</span> {event.startTime}
+          <span className="font-semibold">Time:</span> {time}
         </p>
         <p>
           <span className="font-semibold">Location:</span> {event.location}
