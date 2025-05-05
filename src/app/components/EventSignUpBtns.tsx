@@ -4,8 +4,29 @@ import GoogleCalendarBtn from "./GoogleCalendarBtn";
 
 type Props = {
   eventID: string;
-  eventInfo: any;
-  sessionInfo: any;
+  eventInfo: {
+    _id: string;
+    title: string;
+    description?: string;
+    location: string;
+    date: string;
+    startTime: string;
+    duration: number;
+    attendees: string[];
+    createdBy: string;
+    imageUrl?: string;
+  };
+  sessionInfo: SessionInfo | null;
+};
+
+type SessionInfo = {
+  user: {
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    id?: string;
+    admin?: boolean;
+  };
 };
 
 function EventSignUpBtns({ eventID, eventInfo, sessionInfo }: Props) {

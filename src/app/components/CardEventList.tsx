@@ -9,13 +9,14 @@ type Props = {
   event: {
     _id: string;
     title: string;
+    description?: string;
     location: string;
-    description: string;
     date: string;
     startTime: string;
-    attendees: string[];
     duration: number;
-    imageUrl: string;
+    attendees: string[];
+    createdBy: string;
+    imageUrl?: string;
   };
 };
 
@@ -24,19 +25,16 @@ function CardEventList({ event }: Props) {
   const date = formatDate(event.date);
   const time = formatTo12HourTime(event.startTime);
 
-  // Check if imageUrl is valid
   const validImageUrl = event.imageUrl && event.imageUrl !== "";
 
   return (
     <Link href={`/events/${event._id}`}>
       <li className="flex p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
         <div className="flex flex-row w-full">
-          {/* Image Section */}
           <div className="w-1/3">
-            {/* Conditionally render image */}
             {validImageUrl && !imgError ? (
               <Image
-                src={event.imageUrl}
+                src={event.imageUrl || ".dog.jpg"}
                 alt={event.title}
                 width={200}
                 height={150}

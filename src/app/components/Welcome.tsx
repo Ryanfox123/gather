@@ -1,9 +1,7 @@
 "use client";
 import React from "react";
-import { Playwrite_RO } from "next/font/google";
 import { useSession } from "next-auth/react";
 
-const playwrite = Playwrite_RO({ weight: "400" });
 function Welcome() {
   const { data: session, status } = useSession();
 

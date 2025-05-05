@@ -41,6 +41,7 @@ function SignUpForm({ setAuthMethod }: Props) {
       }
     } catch (error) {
       setErrorMessage("Something went wrong. Please try again.");
+      console.error(errorMessage);
     }
   };
 
@@ -101,7 +102,7 @@ function SignUpForm({ setAuthMethod }: Props) {
       </form>
 
       <div className="text-center text-sm text-gray-600">
-        Already have an account?{" "}
+        {"Already have an account? "}
         <button
           className="text-lightViolet font-medium hover:underline"
           onClick={() => setAuthMethod("signin")}

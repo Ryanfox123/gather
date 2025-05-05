@@ -9,7 +9,18 @@ import EventSignUpBtns from "@/app/components/EventSignUpBtns";
 
 type Props = {
   eventID: string;
-  event: any;
+  event: {
+    _id: string;
+    title: string;
+    description?: string;
+    location: string;
+    date: string;
+    startTime: string;
+    duration: number;
+    attendees: string[];
+    createdBy: string;
+    imageUrl?: string;
+  };
 };
 
 export default function EventMain({ eventID, event }: Props) {
@@ -31,7 +42,7 @@ export default function EventMain({ eventID, event }: Props) {
       <div className="w-11/12 md:w-2/3 mx-auto bg-white shadow-md rounded-2xl p-6 space-y-6">
         <div className="flex flex-col md:flex-row gap-6">
           <Image
-            src={event.imageUrl}
+            src={event.imageUrl || "/dog.jpg"}
             alt="Event"
             width={300}
             height={300}

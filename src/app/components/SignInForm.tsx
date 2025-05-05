@@ -96,7 +96,7 @@ function SignInForm({ setAuthMethod }: Props) {
       </form>
 
       <div className="text-center text-sm text-gray-600">
-        Don't have an account?{" "}
+        {"Don't have an account? "}
         <button
           className="text-lightViolet font-medium hover:underline"
           onClick={() => setAuthMethod("signup")}

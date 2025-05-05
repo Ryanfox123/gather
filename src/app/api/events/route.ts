@@ -13,15 +13,7 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const {
-      title,
-      description,
-      location,
-      date,
-      startTime,
-      duration,
-      imageUrl,
-    } = body;
+    const { title, location, date, startTime, duration } = body;
 
     if (!title || !location || !date || !startTime || !duration) {
       return NextResponse.json(

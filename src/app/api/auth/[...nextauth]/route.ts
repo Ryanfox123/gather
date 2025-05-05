@@ -52,7 +52,7 @@ export const authOptions: NextAuthOptions = {
   },
 
   callbacks: {
-    async redirect({ url, baseUrl }) {
+    async redirect({ baseUrl }) {
       return baseUrl;
     },
     async jwt({ token, user, account }) {

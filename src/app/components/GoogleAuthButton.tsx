@@ -3,10 +3,6 @@ import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 
-type Props = {
-  onClick: () => void;
-};
-
 function GoogleAuthButton() {
   return (
     <button

@@ -1,4 +1,4 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Users from "@/models/Users";
 import mongoose from "mongoose";
@@ -12,7 +12,7 @@ interface Context {
 }
 
 //Update a users events, also update that events attendees
-export async function PATCH(req: Request, context: any) {
+export async function PATCH(req: Request, context: Context) {
   try {
     await connectDB();
     const { userID, eventID } = context.params;

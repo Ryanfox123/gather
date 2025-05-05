@@ -1,4 +1,4 @@
-export default function formatTo12HourTime(dateString: any) {
+export default function formatTo12HourTime(dateString: string) {
   const date = new Date(dateString);
 
   const formattedTime = date.toLocaleString("en-GB", {

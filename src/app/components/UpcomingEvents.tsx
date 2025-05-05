@@ -3,11 +3,23 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import CardUpcomingEvent from "./CardUpcomingEvent";
 
+export interface EventType {
+  _id: string;
+  title: string;
+  description?: string;
+  location: string;
+  date: string;
+  startTime: string;
+  duration: number;
+  attendees: string[];
+  createdBy: string;
+  imageUrl?: string;
+}
+
 function UpcomingEvents() {
-  const [userEvents, setUserEvents] = useState<any[]>([]);
+  const [userEvents, setUserEvents] = useState<EventType[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const { data: session, status } = useSession();
-  const [loading, setLoading] = useState(true);
 
   const EVENTS_PER_PAGE = 4;
 
@@ -20,15 +32,13 @@ function UpcomingEvents() {
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
 
-        const sortedData = data.sort((a: any, b: any) => {
+        const sortedData = data.sort((a: EventType, b: EventType) => {
           return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
 
         setUserEvents(sortedData);
       } catch (err) {
         console.error("Error fetching events:", err);
-      } finally {
-        setLoading(false);
       }
     };
 

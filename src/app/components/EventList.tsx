@@ -3,13 +3,22 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import CardEventList from "./CardEventList";
 
-function EventList() {
-  const [allEvents, setAllEvents] = useState<any[]>([]);
-  const [currentPage, setCurrentPage] = useState(0);
-  const { data: session, status } = useSession();
-  const [loading, setLoading] = useState(true);
+export interface EventType {
+  _id: string;
+  title: string;
+  description?: string;
+  location: string;
+  date: string;
+  startTime: string;
+  duration: number;
+  attendees: string[];
+  createdBy: string;
+  imageUrl?: string;
+}
 
-  const EVENTS_PER_PAGE = 10;
+function EventList() {
+  const [allEvents, setAllEvents] = useState<EventType[]>([]);
+  const { data: session } = useSession();
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -27,37 +36,18 @@ function EventList() {
         setAllEvents(sortedData);
       } catch (err) {
         console.error("Error fetching events:", err);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchEvents();
   }, [session]);
 
-  const handleNext = () => {
-    if ((currentPage + 1) * EVENTS_PER_PAGE < allEvents.length) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentPage > 0) {
-      setCurrentPage((prev) => prev - 1);
-    }
-  };
-  const startIndex = currentPage * EVENTS_PER_PAGE;
-  const visibleEvents = allEvents.slice(
-    startIndex,
-    startIndex + EVENTS_PER_PAGE
-  );
-
   return (
     <div className="w-2/3 mx-auto mt-7">
       <h2 className="text-black font-extrabold">Browse new events</h2>
 
       <ul className="flex flex-col gap-4">
-        {visibleEvents.map((event) => (
+        {allEvents.map((event: EventType) => (
           <CardEventList event={event} key={event._id} />
         ))}
       </ul>
