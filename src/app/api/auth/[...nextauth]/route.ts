@@ -1,10 +1,10 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { createUserIfNotExists } from "@/lib/userService";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { createUserIfNotExists } from "@/lib/userService";
 import { loginFunction } from "@/app/utils/logInFunc";
 
-export const authOptions: NextAuthOptions = {
+const handler = NextAuth({
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -12,17 +12,14 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: Record<string, string> | undefined) {
-        if (!credentials?.email || !credentials?.password) {
-          return null;
-        }
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) return null;
 
         try {
           const user = await loginFunction(
             credentials.email,
             credentials.password
           );
-
           if (user) {
             return {
               id: user.id,
@@ -40,8 +37,8 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
           scope:
@@ -57,7 +54,6 @@ export const authOptions: NextAuthOptions = {
     async redirect({ baseUrl }) {
       return baseUrl;
     },
-
     async jwt({ token, user, account }) {
       if (account?.provider === "google") {
         token.accessToken = account.access_token;
@@ -84,7 +80,6 @@ export const authOptions: NextAuthOptions = {
 
       return token;
     },
-
     async session({ session, token }) {
       if (session.user && token.id) {
         session.user.id = token.id as string;
@@ -94,12 +89,10 @@ export const authOptions: NextAuthOptions = {
         session.user.accessToken = token.accessToken as string;
         session.user.admin = token.admin as boolean;
       }
-
       return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
-};
+});
 
-const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
