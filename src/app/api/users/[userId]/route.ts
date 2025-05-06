@@ -5,13 +5,13 @@ import Users from "@/models/Users";
 //Get a users info
 export async function GET(
   request: NextRequest,
-  context: { params: Promise<{ userID: string }> }
+  context: { params: Promise<{ userId: string }> }
 ) {
   try {
     await connectDB();
-    const { userID } = await context.params;
+    const { userId } = await context.params;
 
-    const user = await Users.findById(userID);
+    const user = await Users.findById(userId);
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });

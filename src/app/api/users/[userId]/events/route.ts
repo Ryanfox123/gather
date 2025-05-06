@@ -5,14 +5,14 @@ import Events from "@/models/Events";
 //get all events for a user
 export async function GET(
   req: NextRequest,
-  context: { params: Promise<{ userID: string; eventID: string }> }
+  context: { params: Promise<{ userId: string; eventID: string }> }
 ) {
   try {
     connectDB();
-    const { userID } = await context.params;
+    const { userId } = await context.params;
 
     const userEvents = await Events.find({
-      attendees: userID,
+      attendees: userId,
     });
 
     return NextResponse.json(userEvents);

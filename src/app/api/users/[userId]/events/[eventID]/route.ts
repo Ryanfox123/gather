@@ -16,11 +16,6 @@ export async function PATCH(
 
     const isAttending = body.isAttending;
 
-    console.log("PATCH /api/users/:userId/events/:eventID");
-    console.log("userID:", userId);
-    console.log("eventID:", eventID);
-    console.log("body:", body);
-
     if (
       !mongoose.Types.ObjectId.isValid(userId) ||
       !mongoose.Types.ObjectId.isValid(eventID)
