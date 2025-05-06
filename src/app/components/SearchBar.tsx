@@ -1,10 +1,9 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import React, { useState } from "react";
+import React from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
 function SearchBar() {
-  const [search, setSearch] = useState("");
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -40,7 +39,6 @@ function SearchBar() {
           defaultValue={initialQuery}
           placeholder="Search events"
           className="w-full h-full pl-10 pr-4 text-sm text-black outline-none rounded-l-md  focus:text-black transition-all duration-200"
-          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
       <button

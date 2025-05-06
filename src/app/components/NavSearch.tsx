@@ -5,7 +5,6 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 
 function NavSearch() {
   const [search, setSearch] = useState("");
-  const pathname = usePathname();
   const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {

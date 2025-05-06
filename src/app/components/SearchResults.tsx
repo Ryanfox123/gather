@@ -44,7 +44,8 @@ function SearchResults({ query }: { query: string }) {
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h2 className="text-2xl font-bold text-gray-800 mb-6 border-b pb-2">
-        Search Results for: <span className="text-emerald-600">"{query}"</span>
+        {"Search Results for:"}{" "}
+        <span className="text-emerald-600">"{query}"</span>
       </h2>
 
       {eventResults.length > 0 ? (
@@ -59,7 +60,7 @@ function SearchResults({ query }: { query: string }) {
         </ul>
       ) : (
         <p className="text-gray-500 italic">
-          No events found matching your search.
+          {"No events found matching your search."}
         </p>
       )}
     </div>
