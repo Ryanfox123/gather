@@ -9,7 +9,7 @@ interface Context {
 }
 
 //Get a users info
-export async function GET(_request: NextRequest, context: Context) {
+export async function GET(context: Context) {
   try {
     await connectDB();
     const { userID } = context.params;
