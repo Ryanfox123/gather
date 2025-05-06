@@ -59,8 +59,10 @@ function EventSignUpBtns({ eventID, eventInfo, sessionInfo }: Props) {
     if (!sessionInfo?.user?.id) return;
 
     try {
+      const baseUrl =
+        process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
       const response = await fetch(
-        `/api/users/${sessionInfo.user.id}/events/${eventID}`,
+        `${baseUrl}/api/users/${sessionInfo.user.id}/events/${eventID}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },

@@ -28,7 +28,11 @@ function UpcomingEvents() {
       if (!session) return;
 
       try {
-        const res = await fetch(`/api/users/${session.user?.id}/events`);
+        const baseUrl =
+          process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+        const res = await fetch(
+          `${baseUrl}/api/users/${session.user?.id}/events`
+        );
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
 
