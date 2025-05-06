@@ -9,7 +9,7 @@ type Props = {
   event: {
     _id: string;
     title: string;
-    description?: string;
+    description: string;
     location: string;
     date: string;
     startTime: string;

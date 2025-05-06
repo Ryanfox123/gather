@@ -6,7 +6,7 @@ import CardUpcomingEvent from "./CardUpcomingEvent";
 export interface EventType {
   _id: string;
   title: string;
-  description?: string;
+  description: string;
   location: string;
   date: string;
   startTime: string;
