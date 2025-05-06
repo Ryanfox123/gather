@@ -2,17 +2,14 @@ import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Users from "@/models/Users";
 
-interface Context {
-  params: {
-    userID: string;
-  };
-}
-
 //Get a users info
-export async function GET(request: NextRequest, context: Context) {
+export async function GET(
+  request: NextRequest,
+  context: { params: Promise<{ userID: string }> }
+) {
   try {
     await connectDB();
-    const { userID } = context.params;
+    const { userID } = await context.params;
 
     const user = await Users.findById(userID);
 

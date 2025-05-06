@@ -2,17 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 
-interface Context {
-  params: {
-    eventID: string;
-  };
-}
-
 //Get all attendees for an event
-export async function GET(req: NextRequest, context: Context) {
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ eventID: string }> }
+) {
   try {
     connectDB();
-    const { eventID } = context.params;
+    const { eventID } = await context.params;
 
     const eventAttendees = await Events.findOne(
       { _id: eventID },
