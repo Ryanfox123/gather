@@ -3,14 +3,17 @@ import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 import mongoose from "mongoose";
 
+interface Context {
+  params: {
+    eventID: string;
+  };
+}
+
 // GET
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { eventID: string } }
-) {
+export async function GET(req: NextRequest, context: Context) {
   try {
     await connectDB();
-    const event = await Events.findById(params.eventID);
+    const event = await Events.findById(context.params.eventID);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
