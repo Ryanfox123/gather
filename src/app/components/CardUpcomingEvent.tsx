@@ -21,7 +21,10 @@ function CardUpcomingEvent({ event }: Props) {
 
   return (
     <Link href={`/events/${event._id}`}>
-      <li className="bg-white shadow-md rounded-xl p-4 mb-3 flex flex-col gap-2 border border-gray-200 hover:shadow-md transition sm:w-80 md:w-96 lg:w-64">
+      <li
+        className="bg-white shadow-sm rounded-xl p-4 mb-3 flex flex-col gap-2 border border-gray-200 
+             transition duration-200 transform hover:scale-[1.02] hover:shadow-lg cursor-pointer sm:w-80 md:w-96 lg:w-64"
+      >
         <div className="bg-lightViolet text-white text-xs font-semibold px-2 py-0.5 rounded-full w-fit mb-1">
           {date}
         </div>

@@ -2,6 +2,7 @@
 import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import CardUpcomingEvent from "./CardUpcomingEvent";
+import { motion, AnimatePresence } from "framer-motion"; // Importing framer-motion
 
 export interface EventType {
   _id: string;
@@ -70,7 +71,7 @@ function UpcomingEvents() {
   if (!session) return <p>Not signed in</p>;
 
   return (
-    <div className="mx-auto px-4 sm:px-6 md:px-8 my-10">
+    <div className="mx-auto px-4 sm:px-6 md:px-8 my-10 border border-gray-200 max-w-6xl rounded-xl p-4">
       <h2 className="text-black text-xl font-semibold mb-6">
         Your upcoming events
       </h2>
@@ -92,15 +93,24 @@ function UpcomingEvents() {
         </button>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {visibleEvents.length === 0 ? (
-          <p className="text-black col-span-full">No upcoming events</p>
-        ) : (
-          visibleEvents.map((event) => (
-            <CardUpcomingEvent event={event} key={event._id} />
-          ))
-        )}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentPage}
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.3 }}
+          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+        >
+          {visibleEvents.length === 0 ? (
+            <p className="text-black col-span-full">No upcoming events</p>
+          ) : (
+            visibleEvents.map((event) => (
+              <CardUpcomingEvent event={event} key={event._id} />
+            ))
+          )}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }
