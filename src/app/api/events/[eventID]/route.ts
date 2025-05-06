@@ -30,11 +30,12 @@ export async function GET(
 // DELETE
 export async function DELETE(
   req: NextRequest,
-  context: { params: { eventID: string } }
+  context: { params: Promise<{ eventID: string }> }
 ) {
+  const { eventID } = await context.params;
   try {
     await connectDB();
-    await Events.deleteOne({ _id: context.params.eventID });
+    await Events.deleteOne({ _id: eventID });
 
     return NextResponse.json({ msg: "Event deleted" });
   } catch (error) {
@@ -49,12 +50,13 @@ export async function DELETE(
 // PATCH
 export async function PATCH(
   req: NextRequest,
-  context: { params: { eventID: string } }
+  context: { params: Promise<{ eventID: string }> }
 ) {
+  const { eventID } = await context.params;
   try {
     await connectDB();
 
-    if (!mongoose.Types.ObjectId.isValid(context.params.eventID)) {
+    if (!mongoose.Types.ObjectId.isValid(eventID)) {
       return NextResponse.json({ error: "Invalid event" }, { status: 400 });
     }
 
