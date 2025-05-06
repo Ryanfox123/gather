@@ -30,8 +30,8 @@ function CardEventList({ event }: Props) {
   return (
     <Link href={`/events/${event._id}`}>
       <li className="flex p-4 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-        <div className="flex flex-row w-full">
-          <div className="w-1/3">
+        <div className="flex flex-col sm:flex-row w-full">
+          <div className="w-full sm:w-1/3 mb-4 sm:mb-0">
             {validImageUrl && !imgError ? (
               <Image
                 src={event.imageUrl || ".dog.jpg"}
@@ -48,12 +48,14 @@ function CardEventList({ event }: Props) {
             )}
           </div>
 
-          <div className="ml-4 flex flex-col justify-between w-2/3 h-[150px]">
+          <div className="ml-0 sm:ml-4 flex flex-col justify-between w-full sm:w-2/3">
             <div className="flex flex-col gap-1">
               <p className="text-emerald-600">
                 {date} · {time}
               </p>
-              <h3 className="text-black font-bold">{event.title}</h3>
+              <h3 className="text-black font-bold text-lg sm:text-xl">
+                {event.title}
+              </h3>
               <p className="text-black flex flex-row text-sm">
                 <FaMapPin className="m-1" />
                 {event.location}

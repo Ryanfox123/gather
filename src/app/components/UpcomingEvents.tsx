@@ -71,7 +71,7 @@ function UpcomingEvents() {
   if (!session) return <p>Not signed in</p>;
 
   return (
-    <div className="mx-auto w-fill ml-14">
+    <div className="mx-auto w-fill ml-14 my-10">
       <h2 className="text-black text-xl mb-4">Your upcoming events</h2>
 
       <div className="flex gap-2 mb-2">
