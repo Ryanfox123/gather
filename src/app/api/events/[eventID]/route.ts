@@ -6,11 +6,11 @@ import mongoose from "mongoose";
 // GET
 export async function GET(
   req: NextRequest,
-  { params }: { params: { eventID: string } }
+  context: { params: { eventID: string } } // ✅ Keep this shape, but DO NOT add custom types like ContextType
 ) {
   try {
     await connectDB();
-    const event = await Events.findById(params.eventID);
+    const event = await Events.findById(context.params.eventID);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
@@ -29,11 +29,11 @@ export async function GET(
 // DELETE
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { eventID: string } }
+  context: { params: { eventID: string } }
 ) {
   try {
     await connectDB();
-    await Events.deleteOne({ _id: params.eventID });
+    await Events.deleteOne({ _id: context.params.eventID });
 
     return NextResponse.json({ msg: "Event deleted" });
   } catch (error) {
@@ -48,12 +48,12 @@ export async function DELETE(
 // PATCH
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { eventID: string } }
+  context: { params: { eventID: string } }
 ) {
   try {
     await connectDB();
 
-    if (!mongoose.Types.ObjectId.isValid(params.eventID)) {
+    if (!mongoose.Types.ObjectId.isValid(context.params.eventID)) {
       return NextResponse.json({ error: "Invalid event" }, { status: 400 });
     }
 
