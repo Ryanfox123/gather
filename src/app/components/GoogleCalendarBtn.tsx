@@ -66,7 +66,6 @@ function GoogleCalendarBtn({ eventInfo }: EventInfo) {
       }
 
       const event = await response.json();
-      console.log("Event added to Google Calendar:", event);
 
       setSuccessMessage("Event successfully added to Google Calendar!");
     } catch (error) {

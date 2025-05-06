@@ -48,7 +48,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json(newEvent, { status: 201 });
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { message: "Internal server error" },
       { status: 500 }
@@ -63,7 +62,6 @@ export async function GET() {
     const allEvents = await Events.find();
     return NextResponse.json(allEvents);
   } catch (error) {
-    console.log(error);
     return NextResponse.json(
       { message: "Failed to fetch events" },
       { status: 500 }

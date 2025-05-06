@@ -6,26 +6,42 @@ import Link from "next/link";
 import formatTo12HourTime from "../utils/timeFormat";
 
 type Props = {
-  event: {
-    _id: string;
-    title: string;
-    description: string;
-    location: string;
-    date: string;
-    startTime: string;
-    duration: number;
-    attendees: string[];
-    createdBy: string;
-    imageUrl?: string;
+  event: Event;
+  sessionInfo?: SessionInfo | null;
+};
+
+type Event = {
+  _id: string;
+  title: string;
+  description: string;
+  location: string;
+  date: string;
+  startTime: string;
+  duration: number;
+  attendees: string[];
+  createdBy: string;
+  imageUrl?: string;
+};
+
+type SessionInfo = {
+  user: {
+    name: string | null;
+    email: string | null;
+    image?: string | null;
+    id: string;
+    admin: boolean;
+    events?: string[]; // Mark events as optional (events can be undefined)
   };
 };
 
-function CardEventList({ event }: Props) {
+function CardEventList({ event, sessionInfo }: Props) {
   const [imgError, setImgError] = useState(false);
   const date = formatDate(event.date);
   const time = formatTo12HourTime(event.startTime);
-
   const validImageUrl = event.imageUrl && event.imageUrl !== "";
+
+  // Provide a fallback (empty array) in case sessionInfo?.user.events is undefined
+  const isAttending = sessionInfo?.user.events?.includes(event._id) ?? false;
 
   return (
     <Link href={`/events/${event._id}`}>
@@ -53,6 +69,13 @@ function CardEventList({ event }: Props) {
               <p className="text-emerald-600">
                 {date} · {time}
               </p>
+
+              {isAttending && (
+                <p className="text-black text-sm font-semibold">
+                  Already attending
+                </p>
+              )}
+
               <h3 className="text-black font-bold text-lg sm:text-xl">
                 {event.title}
               </h3>

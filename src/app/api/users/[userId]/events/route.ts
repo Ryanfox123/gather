@@ -8,7 +8,7 @@ export async function GET(
   context: { params: Promise<{ userId: string; eventID: string }> }
 ) {
   try {
-    connectDB();
+    await connectDB();
     const { userId } = await context.params;
 
     const userEvents = await Events.find({

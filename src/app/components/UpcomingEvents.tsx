@@ -35,7 +35,6 @@ function UpcomingEvents() {
         );
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
-
         const sortedData = data.sort((a: EventType, b: EventType) => {
           return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
@@ -71,29 +70,31 @@ function UpcomingEvents() {
   if (!session) return <p>Not signed in</p>;
 
   return (
-    <div className="mx-auto w-fill ml-14 my-10">
-      <h2 className="text-black text-xl mb-4">Your upcoming events</h2>
+    <div className="mx-auto px-4 sm:px-6 md:px-8 my-10">
+      <h2 className="text-black text-xl font-semibold mb-6">
+        Your upcoming events
+      </h2>
 
-      <div className="flex gap-2 mb-2">
+      <div className="flex justify-between gap-4 mb-4">
         <button
           onClick={handlePrevious}
           disabled={currentPage === 0}
-          className="bg-lightViolet text-white px-3 py-1 rounded hover:bg-darkViolet text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-lightViolet text-white px-4 py-2 rounded-lg hover:bg-darkViolet text-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Previous
         </button>
         <button
           onClick={handleNext}
           disabled={(currentPage + 1) * EVENTS_PER_PAGE >= userEvents.length}
-          className="bg-lightViolet text-white px-3 py-1 rounded hover:bg-darkViolet text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-lightViolet text-white px-4 py-2 rounded-lg hover:bg-darkViolet text-sm disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Next
         </button>
       </div>
 
-      <div className="flex flex-row gap-1.5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {visibleEvents.length === 0 ? (
-          <p className="text-black">No upcoming events</p>
+          <p className="text-black col-span-full">No upcoming events</p>
         ) : (
           visibleEvents.map((event) => (
             <CardUpcomingEvent event={event} key={event._id} />

@@ -28,7 +28,6 @@ function EventList() {
         const res = await fetch("/api/events");
         if (!res.ok) throw new Error("Failed to fetch events");
         const data = await res.json();
-
         const sortedData = data.sort((a: EventType, b: EventType) => {
           return new Date(a.date).getTime() - new Date(b.date).getTime();
         });
@@ -48,7 +47,7 @@ function EventList() {
 
       <ul className="flex flex-col gap-4">
         {allEvents.map((event: EventType) => (
-          <CardEventList event={event} key={event._id} />
+          <CardEventList event={event} key={event._id} sessionInfo={session} />
         ))}
       </ul>
     </div>

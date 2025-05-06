@@ -16,16 +16,16 @@ type Props = {
     createdBy: string;
     imageUrl?: string;
   };
-  sessionInfo: SessionInfo | null;
+  sessionInfo?: SessionInfo | null;
 };
 
 type SessionInfo = {
   user: {
-    name?: string | null;
-    email?: string | null;
+    name: string | null;
+    email: string | null;
     image?: string | null;
-    id?: string;
-    admin?: boolean;
+    id: string;
+    admin: boolean;
   };
 };
 
@@ -33,7 +33,7 @@ function EventSignUpBtns({ eventID, eventInfo, sessionInfo }: Props) {
   const [isAttending, setIsAttending] = useState<boolean | null>(null);
 
   useEffect(() => {
-    if (!sessionInfo?.user?.id) return;
+    if (!sessionInfo) return;
 
     const fetchUserEvents = async () => {
       try {

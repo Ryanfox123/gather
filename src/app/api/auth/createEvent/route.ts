@@ -14,7 +14,6 @@ export async function POST(req: NextRequest) {
   }
 
   const eventDetails = await req.json();
-  console.log(eventDetails);
 
   if (!eventDetails.startTime || !eventDetails.duration) {
     return NextResponse.json(
@@ -61,7 +60,6 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ event: response.data });
   } catch (error) {
-    console.log(error);
     console.error("Google Calendar API error:", error);
     return NextResponse.json(
       { error: "Failed to create calendar event" },

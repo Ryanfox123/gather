@@ -86,7 +86,6 @@ function SignUpForm({ setAuthMethod }: Props) {
             placeholder="••••••••"
             value={signUpForm.password}
             onChange={(e) => {
-              console.log(signUpForm);
               setSignUpForm({ ...signUpForm, password: e.target.value });
             }}
             className="w-full px-4 py-2 border border-gray-300 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-newBlue"
