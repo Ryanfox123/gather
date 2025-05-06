@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 
