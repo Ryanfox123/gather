@@ -3,17 +3,14 @@ import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 import mongoose from "mongoose";
 
-interface Context {
-  params: {
-    eventID: string;
-  };
-}
-
 // GET
-export async function GET(req: NextRequest, context: Context) {
+export async function GET(
+  req: NextRequest,
+  { params }: { params: { eventID: string } }
+) {
   try {
     await connectDB();
-    const event = await Events.findById(context.params.eventID);
+    const event = await Events.findById(params.eventID);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
@@ -36,9 +33,7 @@ export async function DELETE(
 ) {
   try {
     await connectDB();
-    const { eventID } = params;
-
-    await Events.deleteOne({ _id: eventID });
+    await Events.deleteOne({ _id: params.eventID });
 
     return NextResponse.json({ msg: "Event deleted" });
   } catch (error) {
@@ -57,9 +52,8 @@ export async function PATCH(
 ) {
   try {
     await connectDB();
-    const { eventID } = params;
 
-    if (!mongoose.Types.ObjectId.isValid(eventID)) {
+    if (!mongoose.Types.ObjectId.isValid(params.eventID)) {
       return NextResponse.json({ error: "Invalid event" }, { status: 400 });
     }
 
