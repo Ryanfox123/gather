@@ -57,13 +57,21 @@ export async function POST(req: NextRequest) {
 }
 
 // Get all events
-export async function GET() {
+
+export async function GET(request: Request) {
   try {
     await connectDB();
-    const allEvents = await Events.find();
-    return NextResponse.json(allEvents);
+
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get("q")?.trim() || "";
+
+    const filter = query ? { title: { $regex: query, $options: "i" } } : {};
+
+    const matchingEvents = await Events.find(filter);
+
+    return NextResponse.json(matchingEvents);
   } catch (error) {
-    console.log(error);
+    console.error("Error fetching events:", error);
     return NextResponse.json(
       { message: "Failed to fetch events" },
       { status: 500 }
