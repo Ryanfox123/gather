@@ -65,8 +65,6 @@ function GoogleCalendarBtn({ eventInfo }: EventInfo) {
         throw new Error("Failed to add event to Google Calendar");
       }
 
-      const event = await response.json();
-
       setSuccessMessage("Event successfully added to Google Calendar!");
     } catch (error) {
       console.error("Error adding event to Google Calendar:", error);
