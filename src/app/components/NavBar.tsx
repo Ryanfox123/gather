@@ -76,7 +76,7 @@ function NavBar() {
       )}
       <div className="hidden sm:flex flex-row gap-4 items-center text-black ml-auto pr-4">
         {isAdmin && (
-          <li>
+          <li className="list-none">
             <button
               className="text-white bg-lightViolet p-2 text-sm rounded-2xl hover:bg-darkViolet cursor-pointer"
               onClick={() => {
