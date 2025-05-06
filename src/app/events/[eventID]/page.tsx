@@ -3,12 +3,13 @@ import SessionWrapper from "@/app/components/SessionWrapper";
 import { notFound } from "next/navigation";
 
 type Props = {
-  params: { eventID: string };
+  params: Promise<{ eventID: string }>;
 };
 
 export default async function Page({ params }: Props) {
+  const resolvedParams = await params;
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/api/events/${params.eventID}`, {
+  const res = await fetch(`${baseUrl}/api/events/${resolvedParams.eventID}`, {
     cache: "no-store",
   });
 
@@ -20,7 +21,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <SessionWrapper>
-      <EventMain eventID={params.eventID} event={event} />
+      <EventMain eventID={resolvedParams.eventID} event={event} />
     </SessionWrapper>
   );
 }
