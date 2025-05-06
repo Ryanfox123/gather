@@ -4,10 +4,7 @@ import Events from "@/models/Events";
 import mongoose from "mongoose";
 
 // GET
-export async function GET(
-  req: NextRequest,
-  context: { params: { eventID: string } } // ✅ Keep this shape, but DO NOT add custom types like ContextType
-) {
+export async function GET(context: { params: { eventID: string } }) {
   try {
     await connectDB();
     const event = await Events.findById(context.params.eventID);
@@ -27,10 +24,7 @@ export async function GET(
 }
 
 // DELETE
-export async function DELETE(
-  req: NextRequest,
-  context: { params: { eventID: string } }
-) {
+export async function DELETE(context: { params: { eventID: string } }) {
   try {
     await connectDB();
     await Events.deleteOne({ _id: context.params.eventID });
@@ -46,10 +40,7 @@ export async function DELETE(
 }
 
 // PATCH
-export async function PATCH(
-  req: NextRequest,
-  context: { params: { eventID: string } }
-) {
+export async function PATCH(context: { params: { eventID: string } }) {
   try {
     await connectDB();
 

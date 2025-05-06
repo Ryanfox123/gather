@@ -28,6 +28,3 @@ export async function GET(_request: NextRequest, context: Context) {
     );
   }
 }
-
-//Remove a user
-export async function DELETE() {}
