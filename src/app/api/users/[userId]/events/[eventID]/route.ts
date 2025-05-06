@@ -7,22 +7,22 @@ import Events from "@/models/Events";
 //Update a users events, also update that events attendees
 export async function PATCH(
   req: Request,
-  context: { params: Promise<{ userID: string; eventID: string }> }
+  context: { params: Promise<{ userId: string; eventID: string }> }
 ) {
   try {
     await connectDB();
-    const { userID, eventID } = await context.params;
+    const { userId, eventID } = await context.params;
     const body = await req.json();
 
     const isAttending = body.isAttending;
 
     console.log("PATCH /api/users/:userId/events/:eventID");
-    console.log("userID:", userID);
+    console.log("userID:", userId);
     console.log("eventID:", eventID);
     console.log("body:", body);
 
     if (
-      !mongoose.Types.ObjectId.isValid(userID) ||
+      !mongoose.Types.ObjectId.isValid(userId) ||
       !mongoose.Types.ObjectId.isValid(eventID)
     ) {
       return NextResponse.json(
@@ -36,11 +36,11 @@ export async function PATCH(
       : { $pull: { events: eventID } };
 
     const eventUpdate = isAttending
-      ? { $addToSet: { attendees: userID } }
-      : { $pull: { attendees: userID } };
+      ? { $addToSet: { attendees: userId } }
+      : { $pull: { attendees: userId } };
 
     const [updatedUser, updatedEvent] = await Promise.all([
-      Users.findByIdAndUpdate(userID, userUpdate, { new: true }),
+      Users.findByIdAndUpdate(userId, userUpdate, { new: true }),
       Events.findByIdAndUpdate(eventID, eventUpdate, { new: true }),
     ]);
 
