@@ -10,9 +10,7 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    const { eventID } = params;
-
-    const event = await Events.findById(eventID);
+    const event = await Events.findById(params.eventID);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });

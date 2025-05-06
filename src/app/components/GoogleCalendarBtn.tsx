@@ -4,14 +4,21 @@ import { useSession } from "next-auth/react";
 import { CalendarPlus } from "lucide-react";
 
 type EventInfo = {
-  title: string;
-  description: string;
-  location: string;
-  startTime: string;
-  duration: number;
+  eventInfo: {
+    _id: string;
+    title: string;
+    description?: string;
+    location: string;
+    date: string;
+    startTime: string;
+    duration: number;
+    attendees: string[];
+    createdBy: string;
+    imageUrl?: string;
+  };
 };
 
-function GoogleCalendarBtn({ eventInfo }: { eventInfo: EventInfo }) {
+function GoogleCalendarBtn({ eventInfo }: EventInfo) {
   const { data: session } = useSession();
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
