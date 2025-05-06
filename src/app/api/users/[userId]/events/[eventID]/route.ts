@@ -7,11 +7,11 @@ import Events from "@/models/Events";
 //Update a users events, also update that events attendees
 export async function PATCH(
   req: Request,
-  context: { params: { userID: string; eventID: string } }
+  context: { params: Promise<{ userID: string; eventID: string }> }
 ) {
   try {
     await connectDB();
-    const { userID, eventID } = context.params;
+    const { userID, eventID } = await context.params;
     const body = await req.json();
 
     const isAttending = body.isAttending;
