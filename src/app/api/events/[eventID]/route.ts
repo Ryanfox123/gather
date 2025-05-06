@@ -6,11 +6,12 @@ import mongoose from "mongoose";
 // GET
 export async function GET(
   req: NextRequest,
-  { params }: { params: { eventID: string } }
+  context: { params: Promise<{ eventID: string }> }
 ) {
+  const { eventID } = await context.params;
   try {
     await connectDB();
-    const event = await Events.findById(params.eventID);
+    const event = await Events.findById(eventID);
 
     if (!event) {
       return NextResponse.json({ error: "Event not found" }, { status: 404 });
