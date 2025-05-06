@@ -1,30 +1,33 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Events from "@/models/Events";
 import mongoose from "mongoose";
 
 // GET
-export async function GET(context: { params: { eventID: string } }) {
-  try {
-    await connectDB();
-    const event = await Events.findById(context.params.eventID);
+// export async function GET(context: { params: { eventID: string } }) {
+//   try {
+//     await connectDB();
+//     const event = await Events.findById(context.params.eventID);
 
-    if (!event) {
-      return NextResponse.json({ error: "Event not found" }, { status: 404 });
-    }
+//     if (!event) {
+//       return NextResponse.json({ error: "Event not found" }, { status: 404 });
+//     }
 
-    return NextResponse.json(event);
-  } catch (error) {
-    console.error("Error fetching event:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch event" },
-      { status: 500 }
-    );
-  }
-}
+//     return NextResponse.json(event);
+//   } catch (error) {
+//     console.error("Error fetching event:", error);
+//     return NextResponse.json(
+//       { error: "Failed to fetch event" },
+//       { status: 500 }
+//     );
+//   }
+// }
 
 // DELETE
-export async function DELETE(context: { params: { eventID: string } }) {
+export async function DELETE(
+  req: NextRequest,
+  context: { params: { eventID: string } }
+) {
   try {
     await connectDB();
     await Events.deleteOne({ _id: context.params.eventID });
@@ -40,7 +43,10 @@ export async function DELETE(context: { params: { eventID: string } }) {
 }
 
 // PATCH
-export async function PATCH(context: { params: { eventID: string } }) {
+export async function PATCH(
+  req: NextRequest,
+  context: { params: { eventID: string } }
+) {
   try {
     await connectDB();
 

@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import connectDB from "@/lib/mongodb";
 import Users from "@/models/Users";
 
@@ -9,7 +9,7 @@ interface Context {
 }
 
 //Get a users info
-export async function GET(context: Context) {
+export async function GET(request: NextRequest, context: Context) {
   try {
     await connectDB();
     const { userID } = context.params;
