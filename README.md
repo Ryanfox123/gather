@@ -72,6 +72,14 @@ Visit [http://localhost:3000](http://localhost:3000) to view the application.
 
 ---
 
-## 📄 License
+## Sign-In Details
 
-This project is licensed under the MIT License.
+### Non-Admin User
+
+- **Email**: non-admin@test.com
+- **Password**: 123
+
+### Admin User
+
+- **Email**: admin@test.com
+- **Password**: 123
