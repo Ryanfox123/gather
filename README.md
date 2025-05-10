@@ -1,37 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Gather App
 
-## Getting Started
+A full-stack web application built with Next.js, MongoDB, and Google OAuth. This project allows users to browse and sign up for future events then add them to their Google calendar.
 
-First, run the development server:
+You can view the live version [here](https://gather-lime.vercel.app/)
+
+---
+
+## 🛠️ Getting Started
+
+Follow these instructions to set up and run the project locally.
+
+### 1. **Clone the Repository**
+
+```bash
+git clone https://github.com/Ryanfox123/gather
+cd gather
+```
+
+### 2. **Install Dependencies**
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3. **Environment Variables**
+
+Create a `.env.local` file in the root directory with the following variables:
+
+```env
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_jwt_secret
+NEXTAUTH_SECRET=your_nextauth_secret
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+SECRET=your_general_oauth_secret
+```
+
+> 🔐 Make sure to never commit `.env.local` to version control. It contains sensitive information.
+
+### 4. **Set Up Your MongoDB Cluster**
+
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and create a free cluster.
+2. Create a database (e.g., `myAppDB`) and add two collections: `users` and `events`.
+3. Replace `your_mongodb_connection_string` in `.env.local` with your actual MongoDB URI.
+
+### 5. **Seed Your Database (Optional)**
+
+There is some test data available in the `src/data` folder. You can use it to populate your MongoDB collections manually. I would recommend downloading [MongoDB Compass](https://www.mongodb.com/try/download/compass) to quickly insert the data files in.
+
+### 6. **Run the Development Server**
 
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000) to view the application.
 
-```
-Method      endpoint                            Authenication
-POST        /auth                               public
+---
 
-GET         /users/:userid                      public
-DELETE      /users/:userid                      private
-PATCH       /users/:userid                      private
-PATCH       /users/:userid/auth                 private
-GET         /users/:userid/events               public
-PATCH       /users/:userid/events/:eventid      private
+## ✨ Features
 
-POST        /events                             private
-GET         /events                             public
-GET         /events/:eventid                    public
-PATCH       /events/:eventid                    private
-DELETE      /events/:eventid                    private
-GET         /events/:eventid/users              public
-PATCH       /events/:eventid/users/:userid      private
-```
+- 🔐 Google OAuth authentication via NextAuth
+- 📦 MongoDB integration for persistent user and event data
+- 📁 Easily extendable and developer-friendly codebase
+- 🧪 Seed data for testing in `src/data`
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.

@@ -1,0 +1,110 @@
+[
+  {
+    "_id": { "$oid": "680cc9d0f3b4fafb9064afb6" },
+    "title": "Tech Conference 2025",
+    "description": "A conference for the latest in tech innovations.",
+    "location": "Tech Hall, City Center",
+    "date": "2025-05-10T09:00:00.000Z",
+    "startTime": "2026-01-10T15:45:00+01:00",
+    "duration": 6,
+    "attendees": [
+      { "$oid": "68093fc4def156f9a1cd6394" },
+      { "$oid": "680934c6def156f9a1cd638f" },
+      { "$oid": "680934c6def156f9a1cd638f" },
+      { "$oid": "68192a1f3f17dc8fa3a18c4a" }
+    ],
+    "createdBy": { "$oid": "68093fc4def156f9a1cd6394" },
+    "imageUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df",
+    "updatedAt": "2025-05-06T17:00:31.386Z"
+  },
+  {
+    "_id": { "$oid": "680cc9d0f3b4fafb9064afb7" },
+    "title": "Annual Music Festival",
+    "description": "A grand music festival with various genres of music.",
+    "location": "Park Plaza",
+    "date": "2025-05-20T16:00:00.000Z",
+    "startTime": "2025-05-10T09:00:00+01:00",
+    "duration": 5,
+    "attendees": [
+      { "$oid": "680934c6def156f9a1cd638f" },
+      { "$oid": "6807e6bbc5230885795f3857" }
+    ],
+    "createdBy": { "$oid": "6807e6bbc5230885795f3857" },
+    "imageUrl": "https://images.unsplash.com/photo-1497032205916-ac775f0649ae",
+    "updatedAt": "2025-05-05T19:37:30.124Z"
+  },
+  {
+    "_id": { "$oid": "680cc9d0f3b4fafb9064afb8" },
+    "title": "Business Networking Event",
+    "description": "Meet and network with like-minded business professionals.",
+    "location": "Grand Hotel Conference Room",
+    "date": "2025-06-05T08:00:00.000Z",
+    "startTime": "2025-05-10T09:00:00+01:00",
+    "duration": 4,
+    "attendees": [
+      { "$oid": "68093fc4def156f9a1cd6394" },
+      { "$oid": "6807e6bbc5230885795f3857" },
+      { "$oid": "680934c6def156f9a1cd638f" }
+    ],
+    "createdBy": { "$oid": "680934c6def156f9a1cd638f" },
+    "imageUrl": "https://images.unsplash.com/photo-1581091215367-59ab6f6b636b",
+    "updatedAt": "2025-04-30T19:30:09.656Z"
+  },
+  {
+    "_id": { "$oid": "680cc9d0f3b4fafb9064afb9" },
+    "title": "Yoga Retreat Weekend",
+    "description": "A relaxing weekend retreat for yoga and mindfulness.",
+    "location": "Mountain View Resort",
+    "date": "2025-07-15T10:00:00.000Z",
+    "startTime": "2026-03-05T13:00:00+01:00",
+    "duration": 2,
+    "attendees": [
+      { "$oid": "6807e6bbc5230885795f3857" },
+      { "$oid": "68093fc4def156f9a1cd6394" }
+    ],
+    "createdBy": { "$oid": "6807e6bbc5230885795f3857" },
+    "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "updatedAt": "2025-05-06T14:50:11.860Z"
+  },
+  {
+    "_id": { "$oid": "680cc9d0f3b4fafb9064afba" },
+    "title": "Startup Pitch Day",
+    "description": "A day where new startups pitch their ideas to investors.",
+    "location": "Innovation Hub",
+    "date": "2025-08-01T14:00:00.000Z",
+    "startTime": "2025-09-20T09:15:00+01:00",
+    "duration": 3,
+    "attendees": [{ "$oid": "680934c6def156f9a1cd638f" }],
+    "createdBy": { "$oid": "68093fc4def156f9a1cd6394" },
+    "imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+    "updatedAt": "2025-05-06T14:50:30.874Z"
+  },
+  {
+    "_id": { "$oid": "680cceebf3b4fafb9064afcb" },
+    "title": "City Food Festival",
+    "description": "Taste dishes from the best chefs in the city.",
+    "location": "New York City",
+    "date": "2025-09-20T09:15:00+01:00",
+    "startTime": "2025-05-10T09:00:00+01:00",
+    "duration": 4,
+    "attendees": [
+      { "$oid": "68093fc4def156f9a1cd6394" },
+      { "$oid": "680934c6def156f9a1cd638f" }
+    ],
+    "createdBy": { "$oid": "6807e6bbc5230885795f3857" },
+    "imageUrl": "https://images.unsplash.com/photo-1555992336-03a23c5f655b"
+  },
+  {
+    "_id": { "$oid": "680cceebf3b4fafb9064afcc" },
+    "title": "Startup Pitch Night",
+    "description": "Local startups showcase their ideas.",
+    "location": "San Francisco",
+    "date": "2025-09-20T14:54:49.837593",
+    "startTime": "2026-01-10T15:45:00+01:00",
+    "duration": 3,
+    "attendees": [{ "$oid": "6807e6bbc5230885795f3857" }],
+    "createdBy": { "$oid": "68093fc4def156f9a1cd6394" },
+    "imageUrl": "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+    "updatedAt": "2025-05-06T14:50:45.141Z"
+  }
+]
