@@ -25,7 +25,7 @@ function SignInForm({ setAuthMethod }: Props) {
     setError("");
 
     const res = await signIn("credentials", {
-      redirect: false,
+      callbackUrl: "/",
       email,
       password,
     });
