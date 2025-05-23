@@ -22,8 +22,6 @@ function EventList() {
 
   useEffect(() => {
     const fetchEvents = async () => {
-      if (!session) return;
-
       try {
         const res = await fetch("/api/events");
         if (!res.ok) throw new Error("Failed to fetch events");

@@ -84,7 +84,7 @@ function EventSignUpBtns({ eventID, eventInfo, sessionInfo }: Props) {
     return (
       <div className="mt-6 flex flex-row gap-2">
         <button
-          className="bg-gray-400 text-white px-5 py-2 rounded-lg"
+          className="bg-blue-500 text-white px-5 py-2 rounded-lg"
           disabled
         >
           Sign in to RSVP

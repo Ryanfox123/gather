@@ -68,7 +68,7 @@ function UpcomingEvents() {
   );
 
   if (status === "loading") return <p>Loading...</p>;
-  if (!session) return <p>Not signed in</p>;
+  if (!session) return null;
 
   return (
     <div className="mx-auto px-4 sm:px-6 md:px-8 my-10 border border-gray-200 max-w-6xl rounded-xl p-4">

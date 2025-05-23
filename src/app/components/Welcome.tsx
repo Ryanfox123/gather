@@ -7,7 +7,12 @@ function Welcome() {
 
   if (status === "loading") return <p>Loading...</p>;
 
-  if (!session) return <p>Not signed in</p>;
+  if (!session)
+    return (
+      <p className="mx-auto w-fit mt-20 text-black ">
+        Please sign in to view your events
+      </p>
+    );
 
   return (
     <div>

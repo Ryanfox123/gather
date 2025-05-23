@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import GoogleAuthButton from "./GoogleAuthButton";
 
 type Props = {
   setAuthMethod: React.Dispatch<React.SetStateAction<string | null>>;
@@ -89,6 +90,7 @@ function SignInForm({ setAuthMethod }: Props) {
           Sign up
         </button>
       </div>
+      <GoogleAuthButton />
     </div>
   );
 }

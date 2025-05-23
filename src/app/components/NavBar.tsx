@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import NavSearch from "./NavSearch";
 import { Playwrite_RO } from "next/font/google";
 import { signOut, useSession } from "next-auth/react";
@@ -8,16 +8,14 @@ import { FaBars } from "react-icons/fa";
 
 const playwrite = Playwrite_RO({ weight: "400" });
 
-function NavBar() {
+type Props = {
+  setLoginPopup: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+function NavBar({ setLoginPopup }: Props) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-    }
-  }, [status, router]);
 
   if (status === "loading") {
     return <p>Loading...</p>;
@@ -74,35 +72,46 @@ function NavBar() {
           </ul>
         </div>
       )}
-      <div className="hidden sm:flex flex-row gap-4 items-center text-black ml-auto pr-4">
-        {isAdmin && (
-          <li className="list-none">
-            <button
-              className="text-white bg-lightViolet p-2 text-sm rounded-2xl hover:bg-darkViolet cursor-pointer"
-              onClick={() => {
-                router.push("/createEvent");
-              }}
-            >
-              Create an event
-            </button>
+      {session ? (
+        <div className="hidden sm:flex flex-row gap-4 items-center text-black ml-auto pr-4">
+          {isAdmin && (
+            <li className="list-none">
+              <button
+                className="text-white bg-lightViolet p-2 text-sm rounded-2xl hover:bg-darkViolet cursor-pointer"
+                onClick={() => {
+                  router.push("/createEvent");
+                }}
+              >
+                Create an event
+              </button>
+            </li>
+          )}
+          <li className="hover:text-lightViolet cursor-pointer list-none">
+            Your events
           </li>
-        )}
-        <li className="hover:text-lightViolet cursor-pointer list-none">
-          Your events
-        </li>
-        <li className="hover:text-lightViolet cursor-pointer list-none">
-          Profile
-        </li>
+          <li className="hover:text-lightViolet cursor-pointer list-none">
+            Profile
+          </li>
 
-        <p
-          className="text-red-500 my-auto pr-4 cursor-pointer"
-          onClick={() => {
-            signOut();
-          }}
-        >
-          Sign out
-        </p>
-      </div>
+          <p
+            className="text-red-500 my-auto pr-4 cursor-pointer"
+            onClick={() => {
+              signOut();
+            }}
+          >
+            Sign out
+          </p>
+        </div>
+      ) : (
+        <div className="hidden sm:flex flex-row gap-4 items-center text-black ml-auto pr-4">
+          <button
+            className="text-white bg-lightViolet p-2 text-sm rounded-2xl hover:bg-darkViolet cursor-pointer w-20 font-extrabold"
+            onClick={() => setLoginPopup((prev) => !prev)}
+          >
+            Sign in
+          </button>
+        </div>
+      )}
     </div>
   );
 }
