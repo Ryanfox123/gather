@@ -34,22 +34,7 @@ function SignInForm({ setAuthMethod }: Props) {
       setError("Invalid email or password");
       return;
     }
-
-    const checkSession = async () => {
-      const maxTries = 10;
-      for (let i = 0; i < maxTries; i++) {
-        const sessionRes = await fetch("/api/auth/session");
-        const session = await sessionRes.json();
-        if (session?.user?.id) {
-          router.push("/");
-          return;
-        }
-        await new Promise((r) => setTimeout(r, 300));
-      }
-      setError("Login succeeded, but session not established.");
-    };
-
-    checkSession();
+    router.push("/");
   };
 
   return (
