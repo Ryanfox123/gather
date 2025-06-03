@@ -106,7 +106,7 @@ function NavBar({ setLoginPopup }: Props) {
         <div className="hidden sm:flex flex-row gap-4 items-center text-black ml-auto pr-4">
           <button
             className="text-white bg-lightViolet p-2 text-sm rounded-2xl hover:bg-darkViolet cursor-pointer w-20 font-extrabold"
-            onClick={() => setLoginPopup((prev) => !prev)}
+            onClick={() => router.push("/login")}
           >
             Sign in
           </button>

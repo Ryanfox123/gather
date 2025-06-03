@@ -6,6 +6,8 @@ import { formatDate } from "@/app/utils/dateformat";
 import formatTo12HourTime from "@/app/utils/timeFormat";
 import GoBackBtn from "@/app/components/GoBackBtn";
 import EventSignUpBtns from "@/app/components/EventSignUpBtns";
+import { useState } from "react";
+import LoginForms from "./LoginForms";
 
 type Props = {
   eventID: string;
@@ -24,6 +26,7 @@ type Props = {
 };
 
 export default function EventMain({ eventID, event }: Props) {
+  const [loginPopup, setLoginPopup] = useState<boolean>(false);
   const { data: session, status } = useSession();
   const date = formatDate(event.date);
   const time = formatTo12HourTime(event.startTime);
@@ -39,6 +42,21 @@ export default function EventMain({ eventID, event }: Props) {
   return (
     <div className="min-h-screen bg-gray-50 py-10">
       <GoBackBtn />
+      {loginPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-black/30">
+          <div className="bg-white p-6 rounded-xl shadow-lg w-1/3">
+            <p
+              className="text-black underline"
+              onClick={() => {
+                setLoginPopup(false);
+              }}
+            >
+              Close
+            </p>
+            <LoginForms />
+          </div>
+        </div>
+      )}
       <div className="w-11/12 md:w-2/3 mx-auto bg-white shadow-md rounded-2xl p-6 space-y-6">
         <div className="flex flex-col md:flex-row gap-6">
           <Image
@@ -63,6 +81,7 @@ export default function EventMain({ eventID, event }: Props) {
               eventID={eventID}
               eventInfo={event}
               sessionInfo={session}
+              setLoginPopup={setLoginPopup}
             />
           </div>
         </div>

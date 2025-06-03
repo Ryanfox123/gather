@@ -1,15 +1,13 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import SignUpForm from "./SignUpForm";
 import SignInForm from "./SignInForm";
 import GoogleAuthButton from "./GoogleAuthButton";
 
 function LoginForms() {
-  const [authMethod, setAuthMethod] = useState<string | null>(null);
-
+  const [authMethod, setAuthMethod] = useState("signin");
   return (
-    <div>
+    <div className="w-full">
       {!authMethod && (
         <div className="flex flex-col mt-8 gap-2 mx-auto">
           {" "}

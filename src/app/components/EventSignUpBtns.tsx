@@ -17,6 +17,7 @@ type Props = {
     imageUrl?: string;
   };
   sessionInfo?: SessionInfo | null;
+  setLoginPopup: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 type SessionInfo = {
@@ -29,7 +30,12 @@ type SessionInfo = {
   };
 };
 
-function EventSignUpBtns({ eventID, eventInfo, sessionInfo }: Props) {
+function EventSignUpBtns({
+  eventID,
+  eventInfo,
+  sessionInfo,
+  setLoginPopup,
+}: Props) {
   const [isAttending, setIsAttending] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -85,7 +91,7 @@ function EventSignUpBtns({ eventID, eventInfo, sessionInfo }: Props) {
       <div className="mt-6 flex flex-row gap-2">
         <button
           className="bg-blue-500 text-white px-5 py-2 rounded-lg"
-          disabled
+          onClick={() => setLoginPopup((prev) => !prev)}
         >
           Sign in to RSVP
         </button>

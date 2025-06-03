@@ -1,17 +1,13 @@
 import React from "react";
 import { useState } from "react";
 
-type Props = {
-  setAuthMethod: React.Dispatch<React.SetStateAction<string | null>>;
-};
-
 type SignUpFormState = {
   name: string;
   email: string;
   password: string;
 };
 
-function SignUpForm({ setAuthMethod }: Props) {
+function SignUpForm({ setAuthMethod }: any) {
   const [signUpForm, setSignUpForm] = useState<SignUpFormState>({
     name: "",
     email: "",
@@ -35,7 +31,6 @@ function SignUpForm({ setAuthMethod }: Props) {
 
       if (response.ok) {
         alert("Signed in successfully");
-        setAuthMethod(null);
       } else {
         setErrorMessage(data.message);
       }
