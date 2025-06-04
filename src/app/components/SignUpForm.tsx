@@ -7,7 +7,11 @@ type SignUpFormState = {
   password: string;
 };
 
-function SignUpForm({ setAuthMethod }: any) {
+type Props = {
+  setAuthMethod: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function SignUpForm({ setAuthMethod }: Props) {
   const [signUpForm, setSignUpForm] = useState<SignUpFormState>({
     name: "",
     email: "",

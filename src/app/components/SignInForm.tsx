@@ -4,7 +4,11 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import GoogleAuthButton from "./GoogleAuthButton";
 
-function SignInForm({ setAuthMethod }: any) {
+type Props = {
+  setAuthMethod: React.Dispatch<React.SetStateAction<string>>;
+};
+
+function SignInForm({ setAuthMethod }: Props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

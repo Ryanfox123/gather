@@ -8,11 +8,7 @@ import { FaBars } from "react-icons/fa";
 
 const playwrite = Playwrite_RO({ weight: "400" });
 
-type Props = {
-  setLoginPopup: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-function NavBar({ setLoginPopup }: Props) {
+function NavBar() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [menuOpen, setMenuOpen] = useState(false);
